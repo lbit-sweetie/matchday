@@ -47,11 +47,17 @@
         id: 'dm-' + sport + '-' + dateISO + '-' + i,
         sport: sport,
         league: LEAGUES[sport][Math.floor(r() * LEAGUES[sport].length)],
+        lid: null, season: null,
         ts: ts, status: status, minute: minute, sh: sh, sa: sa,
         home: { name: a, badge: '' }, away: { name: b, badge: '' },
         tids: null, demo: true
       });
     }
+    /* stable demo league ids so the league filter works offline */
+    out.forEach(function (m) {
+      m.lid = 'dm-' + m.sport + '-' + m.league.replace(/[^A-Za-z0-9]+/g, '-').toLowerCase();
+      m.season = '2025-2026';
+    });
     return out;
   }
 
@@ -83,5 +89,43 @@
     return map;
   }
 
-  window.Demo = { events: events, form: form, live: live };
+  /* Demo standings: deterministic per league, clearly labeled as sample. */
+  function table(league) {
+    var r = U.rng(U.hashStr(league + '|table'));
+    var names = [];
+    Object.keys(TEAMS).forEach(function (s) { names = names.concat(TEAMS[s]); });
+    var pool = names.slice().sort(function () { return r() - 0.5; }).slice(0, 8);
+    var pts = 0;
+    return pool.map(function (nm, i) {
+      var w = Math.floor(r() * 6), d = Math.floor(r() * 3), l = Math.max(0, 7 - w - d);
+      var gf = 8 + Math.floor(r() * 14), ga = 6 + Math.floor(r() * 12);
+      return {
+        intRank: String(i + 1), strTeam: nm, strBadge: '',
+        intPlayed: String(w + d + l), intWin: String(w), intDraw: String(d),
+        intLoss: String(l), intGoalsFor: String(gf), intGoalsAgainst: String(ga),
+        intGoalDifference: String(gf - ga), intPoints: String(w * 3 + d + pts % 2)
+      };
+    }).sort(function (a, b) { return (+b.intPoints) - (+a.intPoints); })
+      .map(function (row, i) { row.intRank = String(i + 1); return row; });
+  }
+
+  /* Demo lineup: deterministic XI per match so the card never looks empty. */
+  function lineup(m) {
+    var r = U.rng(U.hashStr(m.id + '|xi'));
+    var first = ['J.', 'M.', 'L.', 'K.', 'D.', 'A.', 'R.', 'T.', 'S.', 'P.', 'N.'];
+    var last = ['Smith', 'Garcia', 'Khan', 'Silva', 'Moreau', 'Larsen', 'Costa', 'Weber', 'Fontaine', 'Okafor', 'Lindqvist', 'Marchetti'];
+    var pos = ['G', 'D', 'D', 'D', 'D', 'M', 'M', 'M', 'F', 'F', 'F'];
+    function xi() {
+      var x = [];
+      for (var i = 0; i < 11; i++) x.push({ strPlayer: first[Math.floor(r() * first.length)] + ' ' + last[Math.floor(r() * last.length)], strPositionShort: pos[i], intSquadNumber: String(i + 1), strCutout: '' });
+      return x;
+    }
+    var h = xi(), a = xi();
+    var out = [];
+    h.forEach(function (p) { p.strHome = 'Yes'; p.strSubstitute = 'No'; out.push(p); });
+    a.forEach(function (p) { p.strHome = 'No'; p.strSubstitute = 'No'; out.push(p); });
+    return out;
+  }
+
+  window.Demo = { events: events, form: form, live: live, table: table, lineup: lineup };
 })();

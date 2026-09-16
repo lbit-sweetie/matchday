@@ -16,11 +16,25 @@ Dark-forest green theme, mobile-first, bottom tab navigation. No backend.
   Paste it into `js/config.js` → `thesportsdbKey`.
 
 ## Request budget (why the API is not overloaded)
-- Fixtures per date+sport: cached 30 min in localStorage.
-- Live scores: cached 60 s; polled only when the page is visible AND a live match is on screen
-  (default every 2 min, configurable in Profile → Settings or `config.js`).
-- Team form (last 5): cached 24 h.
-- Any API failure → automatic Demo mode (status bar shows the current source).
+Built for an Android WebView (Unity): minimal traffic, no background polling.
+Typical session costs ~9 requests total; re-renders cost 0 (localStorage cache).
+
+| Data | Requests | Cache |
+|---|---|---|
+| Fixtures per date+sport | 4 on first open | 30 min |
+| Live scores | 1 at boot, then only if a live pill is visible AND page is visible (2 min; 3 min floor in WebView) | 60 s |
+| Team form (last 5) | 2 per match detail, first open only | 24 h |
+| Match lineup | 1 per match detail, first open only | 24 h |
+| Team squads (fallback) | 0 — only via explicit "Show team squads" button | 7 days |
+| League standings | 1 per league hub, first open only | 12 h |
+| Scorers | 0 — aggregated from cached timelines; "Load scorers" fetches max 5, user-initiated | 24 h |
+
+- Deep links (`#/match/id`, `#/league/id`) resolve with 1 request max, then cache.
+- Any total API failure → automatic Demo mode (status bar shows the current source).
+
+## Features
+- League chips (local filter, 0 requests) + League hub: standings, fixtures, scorers.
+- Match detail: starting XI + substitutes, squad fallback, league hub link, form guide.
 
 ## Local profile
 Favorites, saved predictions and settings are stored in localStorage (per device/browser).

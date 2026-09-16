@@ -227,4 +227,84 @@ select.sel{background:var(--panel2);border:1px solid var(--line);border-radius:1
   .hero{padding:34px}
   .m-grid{grid-template-columns:110px 1fr auto}
   .m-time .lg{max-width:110px}
+  .matchlist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .matchlist .match{margin:0}
+  #app{max-width:1100px}
 }
+
+/* ============ League filter + hub ============ */
+.lbar{display:flex;gap:10px;align-items:center;margin-top:2px}
+.lchips{flex:1;padding:12px 0 4px}
+.lchip{border-style:dashed}
+.league-open{flex:none;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;font-size:12.5px;border-radius:999px;white-space:nowrap}
+.tbl{margin-top:4px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.trow{display:grid;grid-template-columns:30px 30px 1fr 34px 44px 44px;align-items:center;gap:8px;padding:9px 12px;font-size:13px;border-bottom:1px solid var(--line)}
+.trow:last-child{border-bottom:none}
+.trow.thead{color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:rgba(255,255,255,.02)}
+.trow.tp .rk{color:var(--acc)}
+.rk{font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.tbadge{width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.tbadge img{width:24px;height:24px;object-fit:contain}
+.tbadge .fb{font-size:9px;font-weight:800;color:var(--acc2);background:var(--panel2);border:1px solid var(--line);border-radius:7px;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.tnm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tst{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.tpt{text-align:right;color:var(--acc2);font-variant-numeric:tabular-nums}
+.scor{list-style:none;display:flex;flex-direction:column}
+.srow{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:none}
+.snm{flex:1;font-weight:700;font-size:14px;min-width:0}
+.snm .stm{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.sgl{font-size:18px;color:var(--acc);font-variant-numeric:tabular-nums}
+
+/* ============ Lineups / squads ============ */
+.xi-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.xi-col{min-width:0}
+.xi-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.xi-head b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.xi{list-style:none;display:flex;flex-direction:column}
+.xi li{display:flex;align-items:center;gap:10px;padding:7px 2px;border-bottom:1px dashed var(--line);font-size:13.5px}
+.xi li:last-child{border-bottom:none}
+.xnum{flex:none;width:26px;height:26px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--acc2);font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.xnm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.xpos{flex:none;font-size:10.5px;font-weight:800;color:var(--faint);letter-spacing:.06em}
+.subs{margin-top:8px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.subs summary{cursor:pointer;font-weight:700;color:var(--acc2)}
+
+/* ============ Motion (subtle, GPU-cheap, reduced-motion safe) ============ */
+#app.fade{animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.match,.icard,.card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+@media (hover:hover){
+  .match:hover{transform:translateY(-2px);border-color:rgba(233,180,76,.35);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .icard:hover{transform:translateY(-2px);border-color:rgba(233,180,76,.35)}
+  .chip:hover{border-color:rgba(233,180,76,.4)}
+}
+.chip.active,.day.active{transition:transform .15s ease}
+.chip:active,.day:active{transform:scale(.96)}
+.tab:active{transform:scale(.93)}
+.skel{display:grid;grid-template-columns:64px 1fr 40px;gap:10px;padding:14px;margin-top:10px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.skel i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.12),rgba(255,255,255,.05));background-size:200% 100%;animation:shimmer 1.2s infinite}
+@keyframes shimmer{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+@media (max-width:560px){ .hide-s{display:none} .trow{grid-template-columns:26px 28px 1fr 30px 40px} }
+@media (min-width:720px){ .xi-grid{grid-template-columns:1fr 1fr} }
+
+/* ============ Scoreboard package (B) — GPU-cheap, WebView-safe ============ */.match{position:relative;overflow:hidden;padding-left:18px}
+.match::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:rgba(255,255,255,.08)}
+.match[data-sport="Soccer"]::before{background:#3DD68C}
+.match[data-sport="Basketball"]::before{background:#FF9F5A}
+.match[data-sport="Tennis"]::before{background:#E9D44C}
+.match[data-sport="Hockey"]::before{background:#7FB6C4}
+.m-row .sc{min-width:32px;text-align:center;font-size:16px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;padding:2px 7px;font-variant-numeric:tabular-nums}
+.m-row .sc.live{background:rgba(255,90,95,.18);border-color:rgba(255,90,95,.45);color:#fff}
+.m-time .live-t{color:var(--live);font-variant-numeric:tabular-nums}
+.pill.live{font-size:11px;padding:5px 10px;font-variant-numeric:tabular-nums}
+.hero-match .hm-mid .t{font-size:30px;font-variant-numeric:tabular-nums}
+.trow.tp{background:rgba(233,180,76,.05)}
+.sgl,.tpt,.prob-row .vl,.bigprob .n{font-variant-numeric:tabular-nums}
+/* saved toggle, live glow, hero live text — flat colors only */
+.btn.is-saved{border-color:rgba(233,180,76,.55);color:var(--acc2)}
+.match.is-live{border-color:rgba(255,90,95,.45)}
+.live-txt{color:#FF9A9E;font-weight:800}

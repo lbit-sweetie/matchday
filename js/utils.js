@@ -117,6 +117,11 @@
     store.set('md:preds', p);
     return p[match.id];
   }
+  function predRemove(id) {
+    var p = predAll();
+    if (p[id]) { delete p[id]; store.set('md:preds', p); return true; }
+    return false;
+  }
   function debounce(fn, ms) {
     var t; return function () { var a = arguments, c = this; clearTimeout(t); t = setTimeout(function () { fn.apply(c, a); }, ms); };
   }
@@ -127,7 +132,7 @@
     esc: esc, hashStr: hashStr, rng: rng, initials: initials, abbr: abbr,
     cached: cached, cacheHas: cacheHas, settings: settings, setSettings: setSettings,
     favAll: favAll, favHas: favHas, favToggle: favToggle,
-    predAll: predAll, predHas: predHas, predSave: predSave, debounce: debounce,
+    predAll: predAll, predHas: predHas, predSave: predSave, predRemove: predRemove, debounce: debounce,
     cacheGet: cacheGet, countdownText: countdownText
   };
 })();

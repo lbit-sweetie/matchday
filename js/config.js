@@ -7,12 +7,21 @@ window.CONFIG = {
      Get your own free key at https://www.thesportsdb.com (API section) and paste it here. */
   thesportsdbKey: '3',
 
-  /* Cache TTLs — the guard against frequent API calls. */
+  /* Cache TTLs — the guard against frequent API calls.
+     Keep them LONG: the app runs inside an Android WebView (Unity),
+     so every extra request costs battery, traffic and Play review points. */
   cacheTTL: {
     events: 30 * 60 * 1000,      // fixtures per date+sport: 30 min
     live:   60 * 1000,           // live scores snapshot: 60 sec
-    form:   24 * 60 * 60 * 1000  // last-5-matches form: 24 hours
+    form:   24 * 60 * 60 * 1000, // last-5-matches form: 24 hours
+    table:  12 * 60 * 60 * 1000, // league standings: 12 hours (changes rarely)
+    lineup: 24 * 60 * 60 * 1000, // event lineup/timeline: 24 hours (immutable after FT)
+    squad:  7 * 24 * 60 * 60 * 1000 // team roster fallback: 7 days
   },
+
+  /* Max timelines fetched at once for the scorers board.
+     Scorers are user-initiated only (button), never automatic. */
+  scorersSample: 5,
 
   /* Live-score polling (ms). Runs ONLY when the page is visible AND a live match
      is on screen. 0 = disabled. */

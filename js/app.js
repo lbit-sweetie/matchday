@@ -46,7 +46,6 @@
   function render() {
     parseHash();
     document.getElementById('tabbar').innerHTML = UI.tabbar(tabForRoute());
-    document.getElementById('statusbar').innerHTML = UI.statusbar();
     var fn = { home: Pages.home, matches: Pages.matches, insights: Pages.insights, favorites: Pages.favorites, profile: Pages.profile, match: Pages.matchDetail, league: Pages.leagueDetail }[state.route];
     var arg = (state.route === 'match' || state.route === 'league') ? state.param : undefined;
     var app = document.getElementById('app');
@@ -217,7 +216,7 @@
   document.getElementById('logoIcon').innerHTML = UI.icon('pulse', 22);
   document.getElementById('searchIcon').innerHTML = UI.icon('search', 18);
   document.getElementById('bellIcon').innerHTML = UI.icon('bell', 20);
-  API.pollLive().then(function () { updateBell(); document.getElementById('statusbar').innerHTML = UI.statusbar(); });
+  API.pollLive().then(function () { updateBell(); });
   startPoller();
   render();
 })();

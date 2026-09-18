@@ -37,14 +37,6 @@ svg{display:block}
 .iconbtn{position:relative;width:42px;height:42px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--panel);display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .bdot{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--live);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
 
-/* status bar */
-.statusbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
-.sb-l{display:flex;align-items:center;gap:8px;min-width:0}
-.sb-l span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sdot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none;box-shadow:0 0 8px var(--ok)}
-.sdot.off{background:var(--warn);box-shadow:0 0 8px var(--warn)}
-.sb-r{color:var(--faint);font-weight:600;flex:none;font-variant-numeric:tabular-nums}
-
 /* chips + segment */
 .chips{display:flex;gap:8px;overflow-x:auto;padding:16px 0 4px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
@@ -167,8 +159,8 @@ svg{display:block}
 .bigprob .n{font-size:64px;font-weight:800;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .bigprob .c{color:var(--muted);font-size:14px;margin-top:8px}
 .o-row{margin-top:16px}
-.o-row .top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:600}
-.o-row .top b{color:var(--text)}
+.o-row .o-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:600}
+.o-row .o-top b{color:var(--text)}
 .margin{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 .margin b{color:var(--text)}
 .formula{margin-top:14px;background:#0A1C21;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--acc2);overflow-x:auto;white-space:nowrap}

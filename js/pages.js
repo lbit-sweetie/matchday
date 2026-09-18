@@ -144,7 +144,7 @@
         '<div class="vs">' + UI.badge(m.home, 'big') + '<span class="v">VS</span>' + UI.badge(m.away, 'big') + '</div>' +
         '<div class="bigprob"><div class="n">' + p.top.pct + '%</div><div class="c">' + U.esc(p.top.label === 'Draw' ? 'Draw' : p.top.label + ' to win') + '</div></div>' +
         p.outcomes.map(function (o) {
-          return '<div class="o-row"><div class="top"><span>' + U.esc(o.label) + '</span><b>' + o.pct + '%</b></div>' +
+          return '<div class="o-row"><div class="o-top"><span>' + U.esc(o.label) + '</span><b>' + o.pct + '%</b></div>' +
             '<div class="bar"><i class="' + o.cls + '" style="width:' + o.pct + '%"></i></div></div>';
         }).join('') +
         '<div class="margin"><span>Bookmaker margin (removed)</span><b>' + p.margin + '%</b></div>' +

@@ -206,12 +206,6 @@
       return '<button class="tab' + (t.r === active ? ' active' : '') + '" data-action="tab" data-route="' + t.r + '">' + icon(t.i, 22) + '<span>' + t.l + '</span></button>';
     }).join('') + '</div>';
   }
-  function statusbar() {
-    var demo = API.source === 'demo';
-    return '<div class="sb-l"><span class="sdot' + (demo ? ' off' : '') + '"></span><span>' +
-      (demo ? 'Offline · sample data' : 'Live data · TheSportsDB') + '</span></div>' +
-      '<span class="sb-r">' + API.calls + ' API request' + (API.calls === 1 ? '' : 's') + ' this session</span>';
-  }
   function formChips(arr) {
     return '<span class="chips5">' + arr.map(function (x) { return '<span class="fchip ' + x + '">' + x + '</span>'; }).join('') + '</span>';
   }
@@ -219,7 +213,7 @@
   window.UI = {
     icon: icon, toast: toast, badge: badge, statusPill: statusPill, matchRow: matchRow,
     chips: chips, seg: seg, dateStrip: dateStrip, empty: empty, tabbar: tabbar,
-    statusbar: statusbar, formChips: formChips, cdSpan: cdSpan, formDots: formDots,
+    formChips: formChips, cdSpan: cdSpan, formDots: formDots,
     leaguesFromList: leaguesFromList, leagueChips: leagueChips, tableHtml: tableHtml,
     lineupHtml: lineupHtml, squadHtml: squadHtml, scorersHtml: scorersHtml, skeleton: skeleton,
     sportIcon: sportIcon
